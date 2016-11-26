@@ -1,1 +1,1 @@
-web:	java $JAVA_OPTS -Dninja.port=$PORT -Dninja.mode=prod -jar target/pdrmcheck-0.0.1-SNAPSHOT.jar
+web: java $JAVA_OPTS -Dninja.port=$PORT -Dninja.mode=prod -jar target/pdrmcheck-0.0.1-SNAPSHOT.jar
