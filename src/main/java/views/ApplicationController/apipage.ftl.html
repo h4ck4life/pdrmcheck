@@ -1,0 +1,19 @@
+<#import "../layout/defaultLayout.ftl.html" as layout>
+<@layout.myLayout "PDRM Summon Check">
+
+<div class="well bs-component">
+	<form class="form-horizontal">
+		<fieldset>
+			<legend>Get Summon By I/C Number</legend>
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    curl -XPOST -d 'ic_no=870130021234' 'http://pdrmcheck.filavents.com/v1/pdrm/summon'
+			  </div>
+			</div>
+		</fieldset>
+	</form>
+	<div id="source-button" class="btn btn-primary btn-xs"
+		style="display: none;">&lt; &gt;</div>
+</div>
+
+</@layout.myLayout>
