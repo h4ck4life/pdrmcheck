@@ -32,7 +32,7 @@ public class ApiController {
   NinjaProperties ninjaProperties;
   
   private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
-  private static final String CACHE_DURATION = "1d";
+  private static final String CACHE_DURATION = "2h";
   
   public Result getPDRMSummon(@Param("ic_no") String ic_no, Context ctx) throws JSONException {
     
