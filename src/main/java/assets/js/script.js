@@ -4,17 +4,54 @@
 
 $(function() {
 	
+	var disableForm = function() {
+		$('#spinnerBtn').show();
+		$('#checkBtn').attr('disabled','disabled');
+		$("#icTxt").attr('disabled','disabled');
+	}
+	
+	var enableForm = function() {
+		$('#spinnerBtn').hide();
+		$('#checkBtn').removeAttr('disabled');
+		$("#icTxt").removeAttr('disabled');
+	}
+	
 	$('#checkBtn').click(function(){
+		
+		$('#noSummonResult').hide();
+		disableForm();
+		
 		$.ajax({
 		    type: "POST",
 		    url: "/v1/pdrm/summon",
 		    data: "ic_no=" + $("#icTxt").val(),
 		    dataType: "json",
+		    timeout: 30000,
+		    error: function(e){
+		    	enableForm();
+		    	alert('Oops something wrong happened. Please try again..');
+		    },
 		    success: function (response) {
-		    	var template = $.templates("#theTmpl");
-		    	var htmlOutput = template.render(response.data.SummonData);
-		    	$("#summonResult").html(htmlOutput);
-		    	$("#summonResultTable").show();
+		    	
+		    	// If summon found
+		    	if(response.Status == true) {
+					var template = $.templates("#theTmpl");
+					var htmlOutput = template.render(response.SummonData);
+					$("#summonResult").html(htmlOutput);
+					$("#summonResultTable").show();
+					
+					enableForm();
+				}
+		    	
+		    	// If summon NOT found
+		    	if(response.Status == false) {
+		    		$("#summonResultTable").hide();
+		    		if(response.StatusMessage == 'No summon found') {
+		    			$("#summonResultTable").hide();
+		    			$('#noSummonResult').show();
+		    			enableForm();
+		    		}
+		    	}
 		    }
 		});
 	});

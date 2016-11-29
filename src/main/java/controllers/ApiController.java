@@ -42,7 +42,7 @@ public class ApiController {
     Object cacheResult = (Object) ninjaCache.get(ic_no);
     if(null != cacheResult) {
       System.out.println("Retrieve result from cache: " + ic_no);
-      result.render("data", cacheResult);
+      result.render(cacheResult);
       return result;
     }
 
