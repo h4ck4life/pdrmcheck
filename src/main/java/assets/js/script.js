@@ -4,6 +4,10 @@
 
 $(function() {
 	
+	if(isICNumberExist) {
+		$('#checkBtn').trigger('click');
+	}
+	
 	var disableForm = function() {
 		$('#spinnerBtn').show();
 		$('#checkBtn').attr('disabled','disabled');
@@ -18,6 +22,7 @@ $(function() {
 	
 	$('#checkBtn').click(function(){
 		
+		$('#timeOutError').hide();
 		$('#noSummonResult').hide();
 		disableForm();
 		
@@ -29,12 +34,16 @@ $(function() {
 		    timeout: 30000,
 		    error: function(e){
 		    	enableForm();
-		    	alert('Oops something wrong happened. Please try again..');
+		    	$('#timeOutError').show();
 		    },
 		    success: function (response) {
 		    	
 		    	// If summon found
 		    	if(response.Status == true) {
+		    		
+		    		$('#userName').text(response.Name);
+		    		$('#totalAmount').text('Total: RM ' + response.TotalAmount);
+		    		
 					var template = $.templates("#theTmpl");
 					var htmlOutput = template.render(response.SummonData);
 					$("#summonResult").html(htmlOutput);
@@ -49,6 +58,10 @@ $(function() {
 		    		if(response.StatusMessage == 'No summon found') {
 		    			$("#summonResultTable").hide();
 		    			$('#noSummonResult').show();
+		    			enableForm();
+		    		}
+		    		if(response.ErrorMessage) {
+		    			$('#timeOutError').show();
 		    			enableForm();
 		    		}
 		    	}

@@ -14,7 +14,7 @@
      <label class="control-label" for="inputLarge" style="font-size: 1em;">Type in your I/C number below:</label>
      <!-- <h3>Type in your I/C number below:</h3> -->
      <div class="input-group">
-     	<input class="form-control input-lg" id="icTxt" type="text" placeholder="e.g. 870130021234" id="inputLarge">
+     	<input class="form-control input-lg" id="icTxt" maxlength="12" value="<#if icnumber??>${icnumber}<#else></#if>" type="text" placeholder="e.g. 87013002XXXX" id="inputLarge">
 	     <span class="input-group-btn">
 	       <button class="btn btn-primary btn-lg" id="checkBtn" type="button">
 	       <i id="spinnerBtn" class="fa fa-spinner fa-pulse fa-fw" style="display:none;"></i>
@@ -26,6 +26,14 @@
    </div>
  </div>
  
+  <div class="container" id="timeOutError" style="display:none;">
+    <div class="row text-center">
+    	<i class="fa fa-meh-o fa-3x" aria-hidden="true"></i>
+    	<h3>Oops, something went wrong.<br>Please try again.</h3>
+    </div>
+  </div>
+ 
+ 
  <div class="container" id="noSummonResult" style="display:none;">
     <div class="row text-center">
     	<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i>
@@ -35,6 +43,11 @@
  
  <div class="container" id="summonResultTable" style="display:none;">
     <div class="row">
+    	<div>
+    		<span class="label label-default" id="userName" style="font-size: 12px;"></span>
+    		<span class="label label-danger" id="totalAmount" style="font-size: 12px;"></span>
+    	</div>
+    	<br>
     	<div id="no-more-tables">
             <table class="table-bordered table-striped table-condensed cf">
         		<thead class="cf">
@@ -44,7 +57,6 @@
         				<th class="numeric">Vehicle No</th>
         				<th class="numeric">Blacklisted</th>
         				<!-- <th class="numeric">OPS Sikap Enforcement</th> -->
-        				<!-- <th class="numeric">Amount</th> -->
         				<!-- <th class="numeric">Original Amount</th> -->
         				<th class="numeric">Offence Date</th>
         				<!-- <th class="numeric">Enforcement Date</th> -->
@@ -52,7 +64,8 @@
         				<th class="numeric">District</th>
         				<th class="numeric">Offence</th>
         				<th class="numeric">Location</th>
-        				<th class="numeric">Final Amount</th>
+        				<!-- <th class="numeric">Final Amount</th> -->
+        				<th class="numeric">Amount</th>
         			</tr>
         		</thead>
         		<tbody id="summonResult">
@@ -70,7 +83,6 @@
 			<td data-title="Vehicle No">{{:VehicleNo}}</td>
 			<td data-title="Blacklisted">{{:Blacklisted}}</td>
 			<!-- <td data-title="OPS Sikap Enforcement">{{:OPSSikapEnforcement}}</td> -->
-			<!-- <td data-title="Amount" class="numeric">{{:Amount}}</td> -->
 			<!-- <td data-title="Original Amount" class="numeric">{{:OriginalAmount}}</td> -->
 			<td data-title="Offence Date">{{:OffenceDate}}</td>
 			<!-- <td data-title="Enforcement Date">{{:EnforcementDate}}</td> -->
@@ -78,9 +90,9 @@
 			<td data-title="District">{{:District}}</td>
 			<td data-title="Offence">{{:Offence}}</td>
 			<td data-title="Location">{{:Location}}</td>
-			<td data-title="Final Amount" class="numeric">RM {{:FinalAmount}}</td>
+			<!-- <td data-title="Final Amount" class="numeric">RM {{:FinalAmount}}</td> -->
+			<td data-title="Amount" class="numeric">{{:Amount}}</td>
         </tr>
 </script>
- 
  
 </@layout.myLayout>

@@ -16,6 +16,7 @@ package controllers;
 
 import ninja.Result;
 import ninja.Results;
+import ninja.params.PathParam;
 
 import com.google.inject.Singleton;
 
@@ -23,9 +24,15 @@ import com.google.inject.Singleton;
 @Singleton
 public class ApplicationController {
 
-  public Result index() {
+  public Result index(@PathParam("icnumber") String icnumber) {
 
-    return Results.html();
+    Result htmlObj = Results.html();
+    
+    if(null != icnumber && !icnumber.equals("")) {
+      htmlObj.render("icnumber", icnumber);
+    }
+    
+    return htmlObj;
 
   }
 

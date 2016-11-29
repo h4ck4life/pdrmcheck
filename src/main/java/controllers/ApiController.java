@@ -78,6 +78,9 @@ public class ApiController {
       // Get the summon table data
       Element summonTable = docu.parse().getElementById("dataTable");
       
+      // Get parent table of summon table
+      //Element summonParentTable = docu.parse().getElementById("make_payment");
+      
       // if there is no summon table, no summon found! yay!
       if(null == summonTable) {
         result.render("Status", false);
@@ -121,11 +124,15 @@ public class ApiController {
       // Get total amount of summon
       String totalAmount = summonTable.select("tfoot > tr > td:nth-child(16)").text();
       
+      // Get user name
+      String userName = docu.parse().select("#make_payment > table > tbody > tr > td:nth-child(2)").text();
+      
       result.render("Status", true);
       result.render("Author", "alifaziz@gmail.com");
       result.render("IcNumber", ic_no);
-      result.render("SummonData", summonMapList);
       result.render("TotalAmount", totalAmount);
+      result.render("Name", userName);
+      result.render("SummonData", summonMapList);
       
       // Put into cache for 2 hours validity
       ninjaCache.set(ic_no, result.getRenderable(), CACHE_DURATION);
