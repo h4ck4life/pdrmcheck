@@ -14,13 +14,63 @@
      <label class="control-label" for="inputLarge" style="font-size: 1em;">Type in your I/C number below:</label>
      <!-- <h3>Type in your I/C number below:</h3> -->
      <div class="input-group">
-     	<input class="form-control input-lg" type="text" placeholder="e.g. 870130021234" id="inputLarge">
+     	<input class="form-control input-lg" id="icTxt" type="text" placeholder="e.g. 870130021234" id="inputLarge">
 	     <span class="input-group-btn">
-	       <button class="btn btn-primary btn-lg" type="button">Check</button>
+	       <button class="btn btn-primary btn-lg" id="checkBtn" type="button">Check</button>
 	     </span>
      </div>
      <!-- <p><a class="btn btn-primary btn-lg">Learn more</a></p> -->
    </div>
  </div>
-
+ 
+ <div class="container" id="summonResultTable" style="display:none;">
+    <div class="row">
+    	<div id="no-more-tables">
+            <table class="table-bordered table-striped table-condensed cf">
+        		<thead class="cf">
+        			<tr>
+        				<th>No</th>
+        				<th>Summons No</th>
+        				<th class="numeric">Vehicle No</th>
+        				<th class="numeric">Blacklisted</th>
+        				<!-- <th class="numeric">OPS Sikap Enforcement</th> -->
+        				<!-- <th class="numeric">Amount</th> -->
+        				<!-- <th class="numeric">Original Amount</th> -->
+        				<th class="numeric">Offence Date</th>
+        				<!-- <th class="numeric">Enforcement Date</th> -->
+        				<th class="numeric">Non Compoundable</th>
+        				<th class="numeric">District</th>
+        				<th class="numeric">Offence</th>
+        				<th class="numeric">Location</th>
+        				<th class="numeric">Final Amount</th>
+        			</tr>
+        		</thead>
+        		<tbody id="summonResult">
+        		</tbody>
+        	</table>
+        </div>
+    </div>
+</div>
+ 
+ 
+<script id="theTmpl" type="text/x-jsrender">
+        <tr>
+			<td data-title="No">{{:#index + 1}}</td>
+        	<td data-title="Summons No">{{:SummonsNo}}</td>
+			<td data-title="Vehicle No">{{:VehicleNo}}</td>
+			<td data-title="Blacklisted">{{:Blacklisted}}</td>
+			<!-- <td data-title="OPS Sikap Enforcement">{{:OPSSikapEnforcement}}</td> -->
+			<!-- <td data-title="Amount" class="numeric">{{:Amount}}</td> -->
+			<!-- <td data-title="Original Amount" class="numeric">{{:OriginalAmount}}</td> -->
+			<td data-title="Offence Date">{{:OffenceDate}}</td>
+			<!-- <td data-title="Enforcement Date">{{:EnforcementDate}}</td> -->
+			<td data-title="Non Compoundable">{{:NonCompoundable}}</td>
+			<td data-title="District">{{:District}}</td>
+			<td data-title="Offence">{{:Offence}}</td>
+			<td data-title="Location">{{:Location}}</td>
+			<td data-title="Final Amount" class="numeric">RM {{:FinalAmount}}</td>
+        </tr>
+</script>
+ 
+ 
 </@layout.myLayout>
