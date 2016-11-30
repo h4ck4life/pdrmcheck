@@ -46,6 +46,7 @@ $(function() {
 		    timeout: 30000,
 		    error: function(e){
 		    	enableForm();
+		    	$("#summonResultTable").hide();
 		    	$('#timeOutError').show();
 		    },
 		    success: function (response) {
@@ -73,6 +74,7 @@ $(function() {
 		    			enableForm();
 		    		}
 		    		if(response.ErrorMessage) {
+		    			$("#summonResultTable").hide();
 		    			$('#timeOutError').show();
 		    			enableForm();
 		    		}
