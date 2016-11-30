@@ -39,6 +39,7 @@ public class ApiController {
     
     Result result = Results.json();
     
+    // Validate if the IC is not numeric
     if(!StringUtils.isNumeric(ic_no)) {
       result.render("Status", false);
       result.render("IcNumber", ic_no);
@@ -46,6 +47,7 @@ public class ApiController {
       return result;
     }
     
+    // Validate if IC input has space value
     if(ic_no.replace(" ", "").length() < 1) {
       result.render("Status", false);
       result.render("IcNumber", ic_no);
@@ -53,6 +55,7 @@ public class ApiController {
       return result;
     }
     
+    // Validate if IC length is less than 12
     if(ic_no.length() < 12) {
       result.render("Status", false);
       result.render("IcNumber", ic_no);
@@ -99,9 +102,6 @@ public class ApiController {
       
       // Get the summon table data
       Element summonTable = docu.parse().getElementById("dataTable");
-      
-      // Get parent table of summon table
-      //Element summonParentTable = docu.parse().getElementById("make_payment");
       
       // if there is no summon table, no summon found! yay!
       if(null == summonTable) {
