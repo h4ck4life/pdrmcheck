@@ -125,7 +125,7 @@ public class ApiController {
       String totalAmount = summonTable.select("tfoot > tr > td:nth-child(16)").text();
       
       // Get user name
-      String userName = docu.parse().select("#make_payment > table > tbody > tr > td:nth-child(2)").text();
+      String userName = docu.parse().select("#make_payment > table").get(0).select("tbody > tr > td:nth-child(2)").text();
       
       result.render("Status", true);
       result.render("Author", "alifaziz@gmail.com");

@@ -22,6 +22,12 @@ $(function() {
 	
 	$('#checkBtn').click(function(){
 		
+		var icno = $("#icTxt").val();
+		if(icno.replace(/ /g,"").length < 1) {
+			$("#icTxt").focus();
+			return false;
+		}
+		
 		$('#timeOutError').hide();
 		$('#noSummonResult').hide();
 		disableForm();
