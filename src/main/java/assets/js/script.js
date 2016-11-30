@@ -23,7 +23,13 @@ $(function() {
 	$('#checkBtn').click(function(){
 		
 		var icno = $("#icTxt").val();
+		
 		if(icno.replace(/ /g,"").length < 1) {
+			$("#icTxt").focus();
+			return false;
+		}
+		
+		if(icno.length < 12) {
 			$("#icTxt").focus();
 			return false;
 		}

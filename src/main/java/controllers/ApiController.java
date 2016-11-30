@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
@@ -37,6 +38,27 @@ public class ApiController {
   public Result getPDRMSummon(@Param("ic_no") String ic_no, Context ctx) throws JSONException {
     
     Result result = Results.json();
+    
+    if(!StringUtils.isNumeric(ic_no)) {
+      result.render("Status", false);
+      result.render("IcNumber", ic_no);
+      result.render("ErrorMessage", "Please input only digits");
+      return result;
+    }
+    
+    if(ic_no.replace(" ", "").length() < 1) {
+      result.render("Status", false);
+      result.render("IcNumber", ic_no);
+      result.render("ErrorMessage", "Please input valid IC number type");
+      return result;
+    }
+    
+    if(ic_no.length() < 12) {
+      result.render("Status", false);
+      result.render("IcNumber", ic_no);
+      result.render("ErrorMessage", "Make sure IC number is 12 digits long");
+      return result;
+    }
     
     // Check cache result
     Object cacheResult = (Object) ninjaCache.get(ic_no);
