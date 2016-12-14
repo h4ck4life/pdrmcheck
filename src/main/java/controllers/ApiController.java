@@ -12,6 +12,8 @@ import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -25,6 +27,8 @@ import ninja.utils.NinjaProperties;
 
 @Singleton
 public class ApiController {
+  
+  final static Logger logger = LoggerFactory.getLogger("com.filavents.pdrmcheck");
   
   @Inject
   NinjaCache ninjaCache;
@@ -158,12 +162,15 @@ public class ApiController {
       
       // Put into cache for 2 hours validity
       ninjaCache.set(ic_no, result.getRenderable(), CACHE_DURATION);
+      
+      logger.debug(result.getRenderable().toString());
 
     } catch (Exception e) {
       e.printStackTrace();
       result.render("Status", false);
       result.render("IcNumber", ic_no);
       result.render("ErrorMessage", e.getMessage());
+      logger.error(result.getRenderable().toString());
     }
 
     return result;
