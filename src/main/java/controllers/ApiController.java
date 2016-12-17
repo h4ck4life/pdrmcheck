@@ -169,28 +169,30 @@ public class ApiController {
       result.render("Name", userName);
       result.render("SummonData", summonMapList);
       
+      List<Map<String, Object>> summonMapListCopy = summonMapList;
+      
       // Put into cache for 2 hours validity
       ninjaCache.set(ic_no, result.getRenderable(), CACHE_DURATION);
       
       // Save to DB
-      for (int i = 0; i < summonMapList.size(); i++) {
-        summonMapList.get(i).put("TotalAmount", Double.parseDouble(totalAmount.replace(",", "")));
-        summonMapList.get(i).put("Name", userName);
-        summonMapList.get(i).put("ICNumber", ic_no);
+      for (int i = 0; i < summonMapListCopy.size(); i++) {
+        summonMapListCopy.get(i).put("TotalAmount", Double.parseDouble(totalAmount.replace(",", "")));
+        summonMapListCopy.get(i).put("Name", userName);
+        summonMapListCopy.get(i).put("ICNumber", ic_no);
         
         // Reformat OffenceDate to date type
         SimpleDateFormat OffenceDateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        summonMapList.get(i).put("OffenceDate", OffenceDateFormatter.parse(summonMapList.get(i).get("OffenceDate").toString()));
+        summonMapListCopy.get(i).put("OffenceDate", OffenceDateFormatter.parse(summonMapListCopy.get(i).get("OffenceDate").toString()));
         
         // Reformat EnforcementDate to date type
         SimpleDateFormat EnforcementDateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-        summonMapList.get(i).put("EnforcementDate", EnforcementDateFormatter.parse(summonMapList.get(i).get("EnforcementDate").toString()));
+        summonMapListCopy.get(i).put("EnforcementDate", EnforcementDateFormatter.parse(summonMapListCopy.get(i).get("EnforcementDate").toString()));
         
         //System.out.println(summonMapList.get(i).toString());
        
         // Insert in DB
         SqlSession sqlSession = db.getConnection().openSession(true);
-        sqlSession.getMapper(SummonMapper.class).insertSummon(summonMapList.get(i));
+        sqlSession.getMapper(SummonMapper.class).insertSummon(summonMapListCopy.get(i));
         sqlSession.close();
       }
       
