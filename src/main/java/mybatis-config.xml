@@ -16,6 +16,7 @@
 		</environment>
 	</environments>
 	<mappers>
-		<package name="mappers" />
+		<!-- <package name="mappers" /> -->
+		<mapper resource="mappers/summonMapper.xml"/>
 	</mappers>
 </configuration>
