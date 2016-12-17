@@ -19,14 +19,16 @@ package conf;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
+import connection.DBConnection;
+import connection.impl.DBConnectionImpl;
+
 @Singleton
 public class Module extends AbstractModule {
-    
 
     protected void configure() {
-        
         // bind your injections here!
-        
+      bind(StartupActions.class);
+      bind(DBConnection.class).to(DBConnectionImpl.class);
     }
 
 }

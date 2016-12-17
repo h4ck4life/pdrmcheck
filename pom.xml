@@ -179,6 +179,21 @@
 			<artifactId>h2</artifactId>
 			<version>1.4.186</version>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.29</version>
+		</dependency>
+		<!-- <dependency>
+		  <groupId>org.mybatis</groupId>
+		  <artifactId>mybatis</artifactId>
+		  <version>3.4.1</version>
+		</dependency> -->
+		<dependency>
+		  <groupId>org.mybatis</groupId>
+		  <artifactId>mybatis</artifactId>
+		  <version>3.3.0</version>
+		</dependency>
 		<!-- If you want to deploy to a war please -->
 		<!-- comment ninja-standalone dependency and -->
 		<!-- uncomment the dependency for ninja-servlet -->

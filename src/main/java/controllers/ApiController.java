@@ -1,11 +1,13 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.json.JSONException;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
@@ -18,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import connection.DBConnection;
+import mappers.SummonMapper;
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
@@ -36,10 +40,15 @@ public class ApiController {
   @Inject
   NinjaProperties ninjaProperties;
   
+  @Inject
+  DBConnection db;
+  
   private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
   private static final String CACHE_DURATION = "2h";
   
   public Result getPDRMSummon(@Param("ic_no") String ic_no, Context ctx) throws JSONException {
+    
+    //System.out.println(db.getConnection().openSession().getMapper(SummonMapper.class).selectAllSummon());
     
     Result result = Results.json();
     
@@ -68,9 +77,9 @@ public class ApiController {
     }
     
     // Check cache result
-    Object cacheResult = (Object) ninjaCache.get(ic_no);
+    Object cacheResult = ninjaCache.get(ic_no);
     if(null != cacheResult) {
-      System.out.println("Retrieve result from cache: " + ic_no);
+      //System.out.println("Retrieve result from cache: " + ic_no);
       result.render(cacheResult);
       return result;
     }
@@ -162,6 +171,28 @@ public class ApiController {
       
       // Put into cache for 2 hours validity
       ninjaCache.set(ic_no, result.getRenderable(), CACHE_DURATION);
+      
+      // Save to DB
+      for (int i = 0; i < summonMapList.size(); i++) {
+        summonMapList.get(i).put("TotalAmount", Double.parseDouble(totalAmount.replace(",", "")));
+        summonMapList.get(i).put("Name", userName);
+        summonMapList.get(i).put("ICNumber", ic_no);
+        
+        // Reformat OffenceDate to date type
+        SimpleDateFormat OffenceDateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        summonMapList.get(i).put("OffenceDate", OffenceDateFormatter.parse(summonMapList.get(i).get("OffenceDate").toString()));
+        
+        // Reformat EnforcementDate to date type
+        SimpleDateFormat EnforcementDateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        summonMapList.get(i).put("EnforcementDate", EnforcementDateFormatter.parse(summonMapList.get(i).get("EnforcementDate").toString()));
+        
+        //System.out.println(summonMapList.get(i).toString());
+       
+        // Insert in DB
+        SqlSession sqlSession = db.getConnection().openSession(true);
+        sqlSession.getMapper(SummonMapper.class).insertSummon(summonMapList.get(i));
+        sqlSession.close();
+      }
       
       logger.debug(result.getRenderable().toString());
 
