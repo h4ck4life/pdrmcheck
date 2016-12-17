@@ -169,10 +169,12 @@ public class ApiController {
       result.render("Name", userName);
       result.render("SummonData", summonMapList);
       
-      List<Map<String, Object>> summonMapListCopy = summonMapList;
+      System.out.println("ORIGINAL OUTPUT: " + summonMapList);
       
       // Put into cache for 2 hours validity
       ninjaCache.set(ic_no, result.getRenderable(), CACHE_DURATION);
+      
+      List<Map<String, Object>> summonMapListCopy = new ArrayList<Map<String, Object>>(summonMapList);
       
       // Save to DB
       for (int i = 0; i < summonMapListCopy.size(); i++) {
@@ -181,12 +183,12 @@ public class ApiController {
         summonMapListCopy.get(i).put("ICNumber", ic_no);
         
         // Reformat OffenceDate to date type
-        SimpleDateFormat OffenceDateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        summonMapListCopy.get(i).put("OffenceDate", OffenceDateFormatter.parse(summonMapListCopy.get(i).get("OffenceDate").toString()));
+        //SimpleDateFormat OffenceDateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        //summonMapListCopy.get(i).put("OffenceDate", OffenceDateFormatter.parse(summonMapListCopy.get(i).get("OffenceDate").toString()));
         
         // Reformat EnforcementDate to date type
-        SimpleDateFormat EnforcementDateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-        summonMapListCopy.get(i).put("EnforcementDate", EnforcementDateFormatter.parse(summonMapListCopy.get(i).get("EnforcementDate").toString()));
+        //SimpleDateFormat EnforcementDateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        //summonMapListCopy.get(i).put("EnforcementDate", EnforcementDateFormatter.parse(summonMapListCopy.get(i).get("EnforcementDate").toString()));
         
         //System.out.println(summonMapList.get(i).toString());
        

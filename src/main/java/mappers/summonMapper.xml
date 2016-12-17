@@ -32,8 +32,8 @@
         	#{Amount},
         	<!-- #{FinalAmount}, -->
         	<!-- #{OriginalAmount}, -->
-        	#{OffenceDate},
-        	#{EnforcementDate},
+        	STR_TO_DATE(#{OffenceDate}, '%d-%m-%Y %H:%i:%s'),
+        	STR_TO_DATE(#{EnforcementDate}, '%d-%m-%Y'),
         	#{NonCompoundable},
         	#{District},
         	#{Offence},
