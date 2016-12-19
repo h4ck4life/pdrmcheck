@@ -1,6 +1,5 @@
 package controllers;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +48,8 @@ public class ApiController {
   public Result getPDRMSummon(@Param("ic_no") String ic_no, Context ctx) throws JSONException {
     
     //System.out.println(db.getConnection().openSession().getMapper(SummonMapper.class).selectAllSummon());
+    
+    long before = System.currentTimeMillis();
     
     Result result = Results.json();
     
@@ -112,6 +113,8 @@ public class ApiController {
           .followRedirects(true)
           .timeout(60000)
           .method(Method.POST).execute();
+      
+      long afterFinishRemotehostCall = System.currentTimeMillis();
       
       // Get the summon table data
       Element summonTable = docu.parse().getElementById("dataTable");
@@ -194,8 +197,18 @@ public class ApiController {
         sqlSession.close();
       }
       
-      logger.debug(result.getRenderable().toString());
+      long after = System.currentTimeMillis();
+      
+      //logger.debug("Total Elapsed time: " + (after - before) + " milliseconds --> " + result.getRenderable().toString());
 
+      logger.debug("\nIC Number: " + ic_no + "\n"
+          + "Remote host elapsed: " + (afterFinishRemotehostCall - before) + " ms\n"
+          + "Save to DB elapsed: " + ((after - before) - (afterFinishRemotehostCall - before)) + " ms\n"
+          + "Total elapsed: " + (after - before) + " ms\n"
+          + "Response: " + result.getRenderable().toString() + "\n"
+          + "\n=====================================================\n");
+      
+      
     } catch (Exception e) {
       e.printStackTrace();
       result.render("Status", false);
