@@ -156,7 +156,25 @@
 		</resources>
 	</build>
 	<dependencies>
+		<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-servlet</artifactId>
+		<version>${jetty.version}</version>
+	</dependency>
 
+		<!--Jetty JSR-356 Websocket server side dependency -->
+	<dependency>
+		<groupId>org.eclipse.jetty.websocket</groupId>
+		<artifactId>javax-websocket-server-impl</artifactId>
+		<version>${jetty.version}</version>
+	</dependency>
+
+	<!--Jetty Websocket API server side dependency -->
+	<dependency>
+		<groupId>org.eclipse.jetty.websocket</groupId>
+		<artifactId>websocket-server</artifactId>
+		<version>${jetty.version}</version>
+	</dependency>
 		<dependency>
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 			<groupId>org.jsoup</groupId>

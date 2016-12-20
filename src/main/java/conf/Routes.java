@@ -28,11 +28,15 @@ public class Routes implements ApplicationRoutes {
     @Override
     public void init(Router router) {  
         
+        // Page
         router.GET().route("/").with(ApplicationController.class, "index");
         router.GET().route("/icnumber/{icnumber}").with(ApplicationController.class, "index");
         router.GET().route("/api").with(ApplicationController.class, "apiPage");
-        router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
+        router.GET().route("/login").with(ApplicationController.class, "login");
+        router.GET().route("/admin").with(ApplicationController.class, "admin");
+        //router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
         
+        // API
         router.POST().route("/v1/pdrm/summon").with(ApiController.class, "getPDRMSummon");
         
  
