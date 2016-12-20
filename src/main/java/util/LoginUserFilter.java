@@ -6,7 +6,7 @@ import ninja.FilterChain;
 import ninja.Result;
 import ninja.Results;
 
-public class SecureFilter implements Filter {
+public class LoginUserFilter implements Filter {
 
   public final String isLogin = "isLogin";
 

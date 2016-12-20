@@ -6,15 +6,16 @@ import ninja.Context;
 import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
-import ninja.SecureFilter;
 import ninja.session.Session;
+import util.LoginUserFilter;
 
 @Singleton
-@FilterWith(SecureFilter.class)
+@FilterWith(LoginUserFilter.class)
 public class AdminController {
   
   public Result index(Session session, Context context) {
-    return Results.html();
+    Result res = Results.html();
+    return res;
   }
   
 }
