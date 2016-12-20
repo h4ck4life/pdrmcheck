@@ -14,47 +14,40 @@
 
 package controllers;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import connection.DBConnection;
+import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 import ninja.params.PathParam;
+import ninja.session.Session;
 
 @Singleton
 public class ApplicationController {
   
   public Result index(@PathParam("icnumber") String icnumber) {
-
     Result htmlObj = Results.html();
-    
     if(null != icnumber && !icnumber.equals("")) {
       htmlObj.render("icnumber", icnumber);
     }
-    
     return htmlObj;
-
   }
 
   public Result apiPage() {
-
     return Results.html();
-
   }
-
+  
+  public Result login(Session session, Context context) {
+    return Results.html();
+  }
+  
   public Result helloWorldJson() {
-
     SimplePojo simplePojo = new SimplePojo();
     simplePojo.content = "Hello World! Hello Json!";
-
     return Results.json().render(simplePojo);
-
   }
 
   public static class SimplePojo {
-
     public String content;
-
   }
 }

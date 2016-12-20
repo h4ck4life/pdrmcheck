@@ -17,6 +17,7 @@
 package conf;
 
 
+import controllers.AdminController;
 import controllers.ApiController;
 import controllers.ApplicationController;
 import ninja.AssetsController;
@@ -33,7 +34,7 @@ public class Routes implements ApplicationRoutes {
         router.GET().route("/icnumber/{icnumber}").with(ApplicationController.class, "index");
         router.GET().route("/api").with(ApplicationController.class, "apiPage");
         router.GET().route("/login").with(ApplicationController.class, "login");
-        router.GET().route("/admin").with(ApplicationController.class, "admin");
+        router.GET().route("/admin").with(AdminController.class, "index");
         //router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
         
         // API
