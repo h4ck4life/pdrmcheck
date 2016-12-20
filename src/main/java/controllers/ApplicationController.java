@@ -19,6 +19,7 @@ import com.google.inject.Singleton;
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
+import ninja.params.Param;
 import ninja.params.PathParam;
 import ninja.session.Session;
 
@@ -37,7 +38,7 @@ public class ApplicationController {
     return Results.html();
   }
   
-  public Result login(Session session, Context context) {
+  public Result login(Session session, Context context, @Param("username") String username, @Param("password") String password) {
     return Results.html();
   }
   

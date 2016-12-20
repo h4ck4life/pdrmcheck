@@ -34,12 +34,13 @@ public class Routes implements ApplicationRoutes {
         router.GET().route("/icnumber/{icnumber}").with(ApplicationController.class, "index");
         router.GET().route("/api").with(ApplicationController.class, "apiPage");
         router.GET().route("/login").with(ApplicationController.class, "login");
+        router.POST().route("/login").with(ApplicationController.class, "login");
         router.GET().route("/admin").with(AdminController.class, "index");
         //router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
         
         // API
         router.POST().route("/v1/pdrm/summon").with(ApiController.class, "getPDRMSummon");
-        
+        router.GET().route("/v1/pdrm/summary").with(AdminController.class, "summary");
  
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)

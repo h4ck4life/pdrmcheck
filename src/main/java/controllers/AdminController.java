@@ -18,4 +18,9 @@ public class AdminController {
     return res;
   }
   
+  public Result summary(Session session, Context context) {
+    Result res = Results.json();
+    return res;
+  }
+  
 }
