@@ -90,6 +90,9 @@ public class ApiController {
 
     try {
       
+      System.setProperty("http.proxyHost", "113.23.219.186");
+      System.setProperty("http.proxyPort", "8080");
+      
       // Login and get session cookies
       Connection.Response res = Jsoup.connect("https://"+ System.getenv("pdrm_hostname")  +"/users/login")
           .userAgent(USER_AGENT)
