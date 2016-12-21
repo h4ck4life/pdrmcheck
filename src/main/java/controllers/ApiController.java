@@ -90,8 +90,8 @@ public class ApiController {
 
     try {
       
-      System.setProperty("http.proxyHost", "113.23.219.186");
-      System.setProperty("http.proxyPort", "8080");
+      // System.setProperty("http.proxyHost", "113.23.219.186");
+      // System.setProperty("http.proxyPort", "8080");
       
       // Login and get session cookies
       Connection.Response res = Jsoup.connect("https://"+ System.getenv("pdrm_hostname")  +"/users/login")
@@ -100,6 +100,7 @@ public class ApiController {
           .data("password", System.getenv("pdrm_pass"))
           .method(Method.POST)
           .timeout(60000)
+          .proxy("158.69.220.160", 3128)
           .execute();
 
       // Submit IC number to get summon records
